@@ -3,7 +3,7 @@ function ProductsPage() {
     <main>
       <div>Products Page</div>
     </main>
-  );
+  )
 }
 
-export default ProductsPage;
+export default ProductsPage
