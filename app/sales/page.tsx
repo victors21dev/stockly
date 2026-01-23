@@ -1,5 +1,5 @@
 const SalesPage = () => {
-  return <h1>Sales Page</h1>;
-};
+  return <h1>Sales Page</h1>
+}
 
-export default SalesPage;
+export default SalesPage
