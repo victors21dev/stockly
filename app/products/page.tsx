@@ -5,12 +5,33 @@ import { productTableColumns } from './_components/table-columns'
 import { getProducts } from '../_data-access/product/get-products'
 
 const ProductsPage = async () => {
-  const products = await getProducts()
+  const response = await fetch('http://localhost:3000/api/products', {
+    method: 'GET',
+    next: {
+      revalidate: 5, // Revalidate this data every 5 seconds
+    },
+  })
+
+  const { products, randomNumber } = await response.json()
+
+  const { randomNumber: randomNumber2 } = await (
+    await fetch('http://localhost:3000/api/number', {
+      method: 'GET',
+      // next: { revalidate: 5 },
+      cache: 'no-store', // Disable caching to always get a fresh number
+    })
+  ).json()
 
   return (
     <div className="m-8 w-full space-y-8 rounded-md bg-white p-8">
       <div className="justify between flex w-full items-center justify-between">
         <div className="space-y-1">
+          <h1 className="text-xl font-medium">
+            Random number from /products: {randomNumber}
+          </h1>
+          <h1 className="text-xl font-medium">
+            Random number from /number: {randomNumber2}
+          </h1>
           <span className="text-xs font-semibold text-slate-500">
             Gestão de produtos
           </span>
